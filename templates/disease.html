@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>病害识别</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <nav><a href="/">首页</a><a href="/yield">产量预测</a></nav>
+    <h1>农作物病害识别</h1>
+    <form id="disease-form" class="panel">
+      <input type="file" name="image" accept=".jpg,.jpeg,.png" required>
+      <select name="method">
+        <option value="yolo">YOLOv8 检测</option>
+        <option value="resnet">ResNet18 分类</option>
+      </select>
+      <button type="submit">开始识别</button>
+    </form>
+    <p id="disease-message" class="message"></p>
+    <section class="result-grid">
+      <div>
+        <h2>原图</h2>
+        <img id="original-image" alt="">
+      </div>
+      <div>
+        <h2>结果图</h2>
+        <img id="result-image" alt="">
+      </div>
+    </section>
+    <section class="panel">
+      <p>类别：<strong id="class-name">-</strong></p>
+      <p>置信度：<strong id="confidence">-</strong></p>
+      <p id="note"></p>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

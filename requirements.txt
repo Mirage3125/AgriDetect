@@ -1,0 +1,11 @@
+Flask>=3.0
+PyYAML>=6.0
+pandas>=2.0
+numpy>=1.26
+scikit-learn>=1.4
+matplotlib>=3.8
+Pillow>=10.0
+torch>=2.0
+torchvision>=0.17
+# Optional for real YOLOv8 training/inference:
+# ultralytics>=8.0

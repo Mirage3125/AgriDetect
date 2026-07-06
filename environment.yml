@@ -1,0 +1,19 @@
+name: smart-agriculture-ai
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - flask
+  - pyyaml
+  - pandas
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - pillow
+  - pytorch
+  - torchvision
+  - pip
+  - pip:
+      - ultralytics

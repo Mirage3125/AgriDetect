@@ -1,0 +1,50 @@
+project:
+  name: Smart Agriculture AI
+  version: 0.1.0
+
+paths:
+  disease_data: data/disease
+  yield_data: data/yield/yield_demo.csv
+  sample_image: data/samples/sample_leaf.png
+  uploads: static/uploads
+  results: static/results
+  figures: outputs/figures
+  yolo_weights: models/yolo/best.pt
+  resnet_weights: models/resnet/resnet18_disease.pth
+  lstm_weights: models/lstm/lstm_yield.pt
+  lstm_scaler: models/lstm/scalers.pkl
+
+disease:
+  class_names:
+    - healthy
+    - leaf_spot
+    - rust
+    - blight
+  image_size: 224
+  confidence_threshold: 0.25
+  max_upload_mb: 8
+
+yield_prediction:
+  sequence_length: 6
+  features:
+    - temperature
+    - rainfall
+    - humidity
+    - soil_moisture
+    - soil_ph
+    - fertilizer_usage
+    - planting_area
+    - historical_yield
+  target: crop_yield
+  train:
+    epochs: 30
+    batch_size: 8
+    learning_rate: 0.001
+    hidden_size: 32
+    num_layers: 1
+    dropout: 0.1
+
+flask:
+  host: 127.0.0.1
+  port: 5000
+  debug: true
