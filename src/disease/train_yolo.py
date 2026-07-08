@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import shutil
 from pathlib import Path
 import sys
 
@@ -24,8 +25,17 @@ def main() -> None:
     except ImportError as exc:
         raise RuntimeError("Ultralytics is not installed. Install it only when YOLO training is needed: pip install ultralytics") from exc
     model = YOLO("yolov8n.pt")
-    model.train(data=str(data_yaml), epochs=args.epochs, imgsz=args.imgsz)
-    print(f"Training finished. Copy the best.pt file to {weights}")
+    results = model.train(data=str(data_yaml), epochs=args.epochs, imgsz=args.imgsz)
+    save_dir = Path(getattr(results, "save_dir", ""))
+    best = save_dir / "weights" / "best.pt"
+    if not best.exists() and getattr(model, "trainer", None):
+        best = Path(model.trainer.best)
+    if best.exists():
+        weights.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(best, weights)
+        print(f"Training finished. Saved YOLO weights to {weights}")
+    else:
+        print(f"Training finished, but best.pt was not found automatically. Check run output and copy it to {weights}")
 
 
 if __name__ == "__main__":

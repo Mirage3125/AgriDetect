@@ -30,9 +30,15 @@
       </div>
     </section>
     <section class="panel">
-      <p>类别：<strong id="class-name">-</strong></p>
-      <p>置信度：<strong id="confidence">-</strong></p>
+      <h2>识别结论</h2>
+      <div class="metric-row">
+        <span>类别：<strong id="class-name">-</strong></span>
+        <span>置信度：<strong id="confidence">-</strong></span>
+        <span>等级：<strong id="severity">-</strong></span>
+      </div>
       <p id="note"></p>
+      <h3>处置建议</h3>
+      <ul id="disease-actions" class="clean-list"></ul>
     </section>
   </main>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>

@@ -14,13 +14,22 @@ from src.common.config import load_config, project_path
 from src.disease.utils import heuristic_leaf_prediction
 
 
+def load_resnet_classes(weights: Path, fallback: list[str]) -> list[str]:
+    class_file = weights.with_suffix(".classes.txt")
+    if class_file.exists():
+        classes = [line.strip() for line in class_file.read_text(encoding="utf-8").splitlines() if line.strip()]
+        if classes:
+            return classes
+    return fallback
+
+
 def predict_resnet(image_path: str | Path) -> dict[str, Any]:
     cfg = load_config()
     image = project_path(image_path)
     if not image.exists():
         raise FileNotFoundError(f"Image not found: {image}")
-    classes = cfg["disease"]["class_names"]
     weights = project_path(cfg["paths"]["resnet_weights"])
+    classes = load_resnet_classes(weights, cfg["disease"]["class_names"])
     if weights.exists():
         try:
             from torchvision import models, transforms

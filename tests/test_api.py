@@ -22,6 +22,8 @@ def test_disease_prediction() -> None:
     assert response.status_code == 200
     assert payload["success"] is True
     assert payload["data"]["class_name"]
+    assert payload["data"]["severity"]["label"]
+    assert payload["data"]["actions"]
 
 
 def test_yield_prediction() -> None:
@@ -32,3 +34,7 @@ def test_yield_prediction() -> None:
     assert response.status_code == 200
     assert payload["success"] is True
     assert payload["data"]["prediction"]["predicted_yield"] > 0
+    assert payload["data"]["risk"]["label"]
+    assert payload["data"]["confidence_interval"]["upper"] >= payload["data"]["confidence_interval"]["lower"]
+    assert len(payload["data"]["sensitivity"]) >= 3
+    assert payload["data"]["recommendations"]

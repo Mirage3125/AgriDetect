@@ -23,6 +23,12 @@ img { width: 100%; min-height: 220px; object-fit: contain; background: white; bo
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
 th, td { border-bottom: 1px solid #e4ece1; padding: 10px; text-align: left; }
+.metric-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin: 8px 0 12px; }
+.badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 5px 10px; background: #e7f2ea; color: #1d6a3e; font-weight: 700; }
+.badge[data-level="medium"] { background: #fff2d9; color: #8a5300; }
+.badge[data-level="high"] { background: #ffe3df; color: #a72d19; }
+.clean-list { margin: 8px 0 0; padding-left: 20px; line-height: 1.8; }
+h3 { margin: 18px 0 8px; font-size: 16px; }
 @media (max-width: 760px) {
   .hero { padding: 28px; min-height: 380px; }
   .grid, .result-grid, .form-grid { grid-template-columns: 1fr; }

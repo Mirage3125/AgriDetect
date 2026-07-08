@@ -13,6 +13,7 @@ env/
 *.log
 outputs/logs/
 outputs/predictions/
+runs/
 static/uploads/*
 static/results/*_result.jpg
 data/**
@@ -41,6 +42,7 @@ outputs/**
 !outputs/predictions/.gitkeep
 *.onnx
 *.engine
+*.pt
 *.zip
 *.tar
 *.rar

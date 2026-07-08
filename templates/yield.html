@@ -25,8 +25,22 @@
     <p id="yield-message" class="message"></p>
     <section class="panel">
       <h2>预测结果</h2>
-      <p><strong id="yield-value">-</strong> kg/ha</p>
+      <div class="metric-row">
+        <span><strong id="yield-value">-</strong> kg/ha</span>
+        <span id="yield-risk" class="badge">-</span>
+        <span id="yield-delta">-</span>
+      </div>
       <p id="yield-engine"></p>
+      <p id="yield-interval"></p>
+      <h3>敏感性分析</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>场景</th><th>预测产量</th><th>影响</th></tr></thead>
+          <tbody id="sensitivity-table"></tbody>
+        </table>
+      </div>
+      <h3>管理建议</h3>
+      <ul id="yield-recommendations" class="clean-list"></ul>
     </section>
     <section class="panel">
       <h2>近期历史产量</h2>

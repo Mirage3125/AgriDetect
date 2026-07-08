@@ -6,6 +6,7 @@ import sys
 from typing import Any
 
 import numpy as np
+import pandas as pd
 import torch
 from sklearn.linear_model import LinearRegression
 
@@ -40,8 +41,8 @@ def predict_next_yield(recent_rows: list[dict[str, float]] | None = None) -> dic
         })
         model.load_state_dict(checkpoint["state_dict"])
         model.eval()
-        array = np.asarray([[row[col] for col in features] for row in recent_rows[-seq_len:]], dtype=np.float32)
-        scaled = scalers["feature_scaler"].transform(array)
+        frame = pd.DataFrame(recent_rows[-seq_len:], columns=features, dtype=np.float32)
+        scaled = scalers["feature_scaler"].transform(frame)
         with torch.no_grad():
             pred_scaled = model(torch.tensor(scaled).unsqueeze(0)).numpy()
         value = float(scalers["target_scaler"].inverse_transform(pred_scaled)[0, 0])

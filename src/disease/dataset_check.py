@@ -30,13 +30,21 @@ def check_dataset(data_dir: str | Path | None = None) -> dict[str, Any]:
 
     image_exts = {".jpg", ".jpeg", ".png"}
     for split_name in ("train", "val", "valid", "test"):
-        split = root / split_name
-        if split.exists():
-            count = len([p for p in split.rglob("*") if p.suffix.lower() in image_exts])
+        split_candidates = [root / split_name, root / "images" / split_name]
+        count = 0
+        for split in split_candidates:
+            if split.exists():
+                count += len([p for p in split.rglob("*") if p.suffix.lower() in image_exts])
+        if count:
             key = "val_images" if split_name == "valid" else f"{split_name}_images"
             result[key] = count
 
-    class_dirs = [p.name for p in root.iterdir() if p.is_dir() and p.name not in {"train", "val", "valid", "test", "images", "labels"}]
+    ignored_dirs = {"train", "val", "valid", "test", "images", "labels", "raw_sources"}
+    class_root = root / "classification"
+    if class_root.exists():
+        class_dirs = [p.name for p in class_root.iterdir() if p.is_dir()]
+    else:
+        class_dirs = [p.name for p in root.iterdir() if p.is_dir() and p.name not in ignored_dirs]
     result["classes"] = sorted(class_dirs)
 
     for image_path in root.rglob("*"):
